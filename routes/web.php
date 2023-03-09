@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Menampilkan index dari semua data
-Route::get('/data/air', [PembayaranAirController::class, 'index'])->name('index');
+Route::get('/', [PembayaranAirController::class, 'index'])->name('index');
 
 // Menampilkan Form Create Pembayaran Air
 Route::get('/create', [PembayaranAirController::class, 'create'])->name('create');
@@ -29,3 +29,8 @@ Route::post('/create', [PembayaranAirController::class, 'store'])->name('store')
 
 // Melihat Data Pembayaran Air berdasarkan ID
 Route::get('/data/air/{id}', [PembayaranAirController::class, 'show'])->name('show');
+
+// Menampilkan view Form Edit Pembayaran Air
+Route::get('/data/air/{id}/edit', [PembayaranAirController::class, 'edit'])->name('edit');
+
+Route::patch('/data/air/{id}/edit', [PembayaranAirController::class, 'update'])->name('update');

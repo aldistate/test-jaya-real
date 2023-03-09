@@ -16,7 +16,14 @@
               <a href="{{ route('create') }}" class="btn btn-primary">Tambah Pembayaran Air</a>
           </div>
       </div>
+      {{-- kondisi jika data berhasil ditambahkan --}}
+      @if (session()->has('sukses'))
+        <div class="alert alert-success col-lg-3 text-center" role="alert">
+          <span data-feather="check"></span> {{ session('sukses') }}
+        </div>
+      @endif
       <table class="table">
+        <caption>List of Data Pembayaran Air</caption>
         <thead>
           <tr>
               <th scope="col">No</th>
@@ -33,8 +40,8 @@
                 <td>{{ $pembayaran->bill_name }}</td>
                 <td>
                   <a href="{{ route('show', $pembayaran) }}" class="badge bg-info mx-1"><span data-feather="eye"></span></a>
-                  {{-- <a href="#" class="badge bg-warning mx-1"><span data-feather="edit"></span></a>
-                  <form action="#" method="POST" class="d-inline">
+                  <a href="{{ route('edit', $pembayaran) }}" class="badge bg-warning mx-1"><span data-feather="edit"></span></a>
+                  {{-- <form action="#" method="POST" class="d-inline">
                     @method('delete')
                     @csrf
                     <button class="badge bg-danger border-0" onclick="return confirm('Apa anda yakin ingin menghapusnya?')"><span data-feather="trash-2"></span></button>

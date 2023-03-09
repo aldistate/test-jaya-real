@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PembayaranAir;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class PembayaranAirController extends Controller
@@ -15,7 +16,7 @@ class PembayaranAirController extends Controller
      */
     public function index()
     {
-        $pembayaranAir = PembayaranAir::all();
+        $pembayaranAir = PembayaranAir::latest()->paginate(10);
 
         return view('index', [
             'pembayaranAir' => $pembayaranAir
@@ -83,8 +84,8 @@ class PembayaranAirController extends Controller
         // Save the record to the database
         $pembayaranAir->save();
 
-        // Return success response
-        return response()->json(['message' => 'Pembayaran air created successfully.'], 201);
+        // Return view index and success response
+        return Redirect::route('index')->with('sukses', 'Data berhasil ditambahkan!!');
     }
 
     /**
@@ -110,7 +111,10 @@ class PembayaranAirController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pembayaranAir = PembayaranAir::find($id);
+        return view('edit', [
+            'pembayaranAir' => $pembayaranAir
+        ]);
     }
 
     /**
@@ -122,7 +126,51 @@ class PembayaranAirController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validate request parameters
+        $validator = Validator::make($request->all(), [
+            'bill_id' => 'required|string|size:12',
+            'bill_name' => 'required|string|max:100',
+            'bill_address' => 'required|string|max:10',
+            'bill_periode' => 'required|integer|min:6',
+            'bill_due_date' => 'required|date',
+            'bill_desc' => 'nullable|string|max:100',
+            'bill_abonemen' => 'required|numeric',
+            'bill_air' => 'required|numeric',
+            'bill_ipl' => 'required|numeric',
+            'bill_disc_air' => 'nullable|numeric',
+            'bill_disc_ipl' => 'nullable|numeric',
+            'bill_denda' => 'nullable|numeric',
+            'bill_total_amount' => 'required|numeric',
+            'bill_resp_stat' => 'required|string|size:2',
+        ]);
+
+        // If validation fails, return error response
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        // Create new Pembayaran air record
+        $pembayaranAir = PembayaranAir::find($id);
+        $pembayaranAir->bill_id = $request->input('bill_id');
+        $pembayaranAir->bill_name = $request->input('bill_name');
+        $pembayaranAir->bill_address = $request->input('bill_address');
+        $pembayaranAir->bill_periode = $request->input('bill_periode');
+        $pembayaranAir->bill_due_date = $request->input('bill_due_date');
+        $pembayaranAir->bill_desc = $request->input('bill_desc');
+        $pembayaranAir->bill_abonemen = $request->input('bill_abonemen');
+        $pembayaranAir->bill_air = $request->input('bill_air');
+        $pembayaranAir->bill_ipl = $request->input('bill_ipl');
+        $pembayaranAir->bill_disc_air = $request->input('bill_disc_air');
+        $pembayaranAir->bill_disc_ipl = $request->input('bill_disc_ipl');
+        $pembayaranAir->bill_denda = $request->input('bill_denda');
+        $pembayaranAir->bill_total_amount = $request->input('bill_total_amount');
+        $pembayaranAir->bill_resp_stat = $request->input('bill_resp_stat');
+
+        // Save the record to the database
+        $pembayaranAir->save();
+
+        // Return view index and success response
+        return Redirect::route('index')->with('sukses', 'Data berhasil diubah!!');
     }
 
     /**
@@ -131,8 +179,8 @@ class PembayaranAirController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PembayaranAir $pembayaranAir)
     {
-        //
+        
     }
 }
