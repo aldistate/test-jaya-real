@@ -11,6 +11,7 @@
   <body>
     <div class="container">
       <h1 class="my-3">Form Create Pembayaran Air</h1>
+      <a href="{{ route('index') }}" class="btn btn-outline-success"><span data-feather="arrow-left-circle"></span></a>
       <form action="{{ route('create') }}" method="post" class="my-5">
         @csrf
         <div class="form-group">
@@ -72,5 +73,9 @@
         <button type="submit" class="btn btn-primary">Create Tagihan</button>
       </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace();
+    </script>
   </body>
 </html>

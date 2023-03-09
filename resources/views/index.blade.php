@@ -29,7 +29,7 @@
               <th scope="col">No</th>
               <th scope="col">No Pelanggan</th>
               <th scope="col">Nama Pelanggan</th>
-              <th scope="col">Aksi</th>
+              <th scope="col" class="text-center">Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -38,19 +38,23 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $pembayaran->bill_id }}</td>
                 <td>{{ $pembayaran->bill_name }}</td>
-                <td>
+                <td class="text-center">
                   <a href="{{ route('show', $pembayaran) }}" class="badge bg-info mx-1"><span data-feather="eye"></span></a>
                   <a href="{{ route('edit', $pembayaran) }}" class="badge bg-warning mx-1"><span data-feather="edit"></span></a>
-                  {{-- <form action="#" method="POST" class="d-inline">
+                  <form action="{{ route('delete', $pembayaran) }}" method="POST" class="d-inline">
                     @method('delete')
                     @csrf
                     <button class="badge bg-danger border-0" onclick="return confirm('Apa anda yakin ingin menghapusnya?')"><span data-feather="trash-2"></span></button>
-                  </form> --}}
+                  </form>
                 </td>
               </tr>
           @endforeach
         </tbody>
       </table>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace();
+    </script>
   </body>
 </html>

@@ -33,4 +33,8 @@ Route::get('/data/air/{id}', [PembayaranAirController::class, 'show'])->name('sh
 // Menampilkan view Form Edit Pembayaran Air
 Route::get('/data/air/{id}/edit', [PembayaranAirController::class, 'edit'])->name('edit');
 
+// Mengubah data sesuai dengan id yg ingin diubah/diupdate
 Route::patch('/data/air/{id}/edit', [PembayaranAirController::class, 'update'])->name('update');
+
+// Menghapus data sesuai dengan id yg ingin dihapus/didelete
+Route::delete('/data/air/{id}', [PembayaranAirController::class, 'destroy'])->name('delete');

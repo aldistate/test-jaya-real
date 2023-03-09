@@ -179,8 +179,13 @@ class PembayaranAirController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PembayaranAir $pembayaranAir)
+    public function destroy($id)
     {
-        
+        // menghapus berdasarkan id
+        $pembayaranAir = PembayaranAir::findOrFail($id);
+        $pembayaranAir->delete();
+
+        // Return view index and success response
+        return Redirect::route('index')->with('sukses', 'Data berhasil dihapus!!');
     }
 }

@@ -77,9 +77,13 @@
               </table>
           </div>
           <div class="card-footer">
-              <a href="#" class="btn btn-secondary">Kembali</a>
+            <a href="{{ route('index') }}" class="btn btn-outline-success"><span data-feather="arrow-left-circle"></span></a>
           </div>
       </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace();
+    </script>
   </body>
 </html>
